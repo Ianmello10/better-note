@@ -45,6 +45,7 @@
 		"@tiptap/core": "^3.0.7",
 		"@tiptap/pm": "^3.0.7",
 		"@tiptap/starter-kit": "^3.0.7",
+		"@tiptap/suggestion": "^3.0.7",
 		"dexie": "^4.0.11",
 		"mode-watcher": "^1.1.0"
 	}

@@ -4,6 +4,7 @@
 	import { useNotes } from '$lib/hooks/useNotes.svelte';
 	import { onMount } from 'svelte';
 	import { db } from '$lib/db/db';
+	import SlashCommandList from '$lib/components/edtior/slashcommand/SlashCommandList.svelte';
 
 	const notesManager = useNotes();
 
@@ -22,3 +23,5 @@
 {:else}
 	<p>Select a note to edit or create a new one.</p>
 {/if}
+
+<SlashCommandList />
