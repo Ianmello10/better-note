@@ -1,57 +1,79 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
+	import { ToggleGroup } from '@ark-ui/svelte/toggle-group';
+
 	import { editorStore } from '$lib/store/editor.svelte';
+	import { Heading1, Heading2, Italic, Pilcrow } from '@lucide/svelte';
+
+	interface ToolbarItem {
+		label: string;
+		icon: any;
+		value: string;
+	}
+
+	const toolbarItems: ToolbarItem[] = [
+		{ value: 'heading-1', icon: Heading1, label: 'Título nível 1' },
+		{ value: 'heading-2', icon: Heading2, label: 'Título nível 2' },
+		{ value: 'italic', icon: Italic, label: 'Itálico' },
+		{ value: 'paragraph', icon: Pilcrow, label: 'Parágrafo' }
+	];
+
+	// Mapeia o estado ativo do editor para o valor do ToggleGroup
+	const activeValues = $derived(() => {
+		const values = [];
+		if (editorStore.isHeadingActive(1)) values.push('heading-1');
+		if (editorStore.isHeadingActive(2)) values.push('heading-2');
+		if (editorStore.isItalicActive()) values.push('italic');
+		if (editorStore.isParagraphActive()) values.push('paragraph');
+		return values;
+	});
+
+	// Lida com as mudanças de valor do ToggleGroup e atualiza o editor
+	const handleValueChange = (details: any) => {
+		const { value } = details;
+		// Simplificando a lógica, aqui você pode ter uma lógica mais
+		// robusta para lidar com a seleção múltipla se necessário.
+		const lastSelected = value[value.length - 1];
+
+		switch (lastSelected) {
+			case 'heading-1':
+				editorStore.toggleHeading(1);
+				break;
+			case 'heading-2':
+				editorStore.toggleHeading(2);
+				break;
+			case 'italic':
+				editorStore.toggleItalic();
+				break;
+			case 'paragraph':
+				editorStore.setParagraph();
+				break;
+		}
+	};
 </script>
 
-<div class="mt-10 flex flex-wrap gap-1 rounded-lg border border-border/50 bg-muted/30 p-2">
-	<Button
-		variant="ghost"
-		size="sm"
-		class="transition-all duration-200 hover:bg-accent/50 active:bg-accent data-[active=true]:bg-accent data-[active=true]:text-accent-foreground"
-		onclick={() => editorStore.toggleHeading(1)}
-		aria-pressed={editorStore.isHeadingActive(1)}
-		data-active={editorStore.isHeadingActive(1)}
-	>
-		<span class="font-bold">H1</span>
-	</Button>
 
-	<Button
-		variant="ghost"
-		size="sm"
-		class="transition-all duration-200 hover:bg-accent/50 active:bg-accent data-[active=true]:bg-accent data-[active=true]:text-accent-foreground"
-		onclick={() => editorStore.toggleHeading(2)}
-		aria-pressed={editorStore.isHeadingActive(2)}
-		data-active={editorStore.isHeadingActive(2)}
-	>
-		<span class="font-bold">H2</span>
-	</Button>
+<ToggleGroup.Root
+	class="mt-4 flex h-8 section-a   w-auto gap-x-2"
+	role="toolbar"
+	aria-label="Formatar texto"
+	multiple
+	value={activeValues()}
+	onValueChange={handleValueChange}
+>
+	{#each toolbarItems as item}
+		<ToggleGroup.Item
+			class="h-full"
+			value={item.value}
+			aria-label={item.label}
+			data-tip={item.label}
+		>
+			<item.icon class="h-4 w-4" />
+		</ToggleGroup.Item>
+	{/each}
+</ToggleGroup.Root>
 
-	<Button
-		variant="ghost"
-		size="sm"
-		class="transition-all duration-200 hover:bg-accent/50 active:bg-accent data-[active=true]:bg-accent data-[active=true]:text-accent-foreground"
-		onclick={editorStore.toggleItalic}
-		aria-pressed={editorStore.isItalicActive()}
-		data-active={editorStore.isItalicActive()}
-	>
-		<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="2"
-				d="M10 20l4-16m4 4l4-16M6 20l4-16"
-			/>
-		</svg>
-	</Button>
 
-	<Button
-		variant="ghost"
-		size="sm"
-		class="transition-all duration-200 hover:bg-accent/50 active:bg-accent data-[active=true]:bg-accent data-[active=true]:text-accent-foreground"
-		onclick={editorStore.setParagraph}
-		aria-pressed={editorStore.isParagraphActive()}
-		data-active={editorStore.isParagraphActive()}
-	>
-		<span class="font-normal">P</span>
-	</Button>
-</div>
+<style>
+
+
+</style>

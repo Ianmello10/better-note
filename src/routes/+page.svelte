@@ -1,11 +1,8 @@
 <script lang="ts">
-	import Button from '$lib/components/ui/button/button.svelte';
-	import Editor from '$lib/components/edtior/Editor.svelte';
 	import { useNotes } from '$lib/hooks/useNotes.svelte';
 	import { onMount } from 'svelte';
 	import { db } from '$lib/db/db';
-	import SlashCommandList from '$lib/components/edtior/slashcommand/SlashCommandList.svelte';
-
+	import GridNotes from '$lib/components/grid/GridNotes.svelte';
 	const notesManager = useNotes();
 
 	onMount(async () => {
@@ -16,12 +13,8 @@
 	});
 </script>
 
-<Button onclick={() => notesManager.createNote('note', 'New Note')}>New Note</Button>
+<div class="flex h-full w-full">
+	<GridNotes />
+</div>
 
-{#if notesManager.currentNote}
-	<Editor note={notesManager.currentNote} {notesManager} />
-{:else}
-	<p>Select a note to edit or create a new one.</p>
-{/if}
-
-<SlashCommandList />
+ 

@@ -37,6 +37,18 @@ async function createNote(type: NoteType, title: string, content?: string) {
 	currentNote = newNote;
 }
 
+async function getNoteById(id: string) {
+
+
+	const note = await db.notes.get(id);
+	if (!note) {
+		throw new Error('Note not found');
+	}
+	currentNote = note;
+	return note;
+
+}
+
 async function updateNoteContent(id: string, content: string) {
 	await db.notes.update(id, { content, updatedAt: new Date() });
 }
@@ -63,6 +75,7 @@ export function useNotes() {
 		createNote,
 		updateNoteContent,
 		deleteNote,
-		changeNote
+		changeNote,
+		getNoteById
 	};
 }

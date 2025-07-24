@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import { Editor, type Transaction } from '@tiptap/core';
+	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
 
 	import ToolBar from '$lib/components/edtior/toolbar/ToolBar.svelte';
@@ -9,6 +9,7 @@
 	import { editorStore } from '$lib/store/editor.svelte';
 
 	import { SlashCommand } from '$lib/tiptap/extensions/slashCommand';
+	import SlashCommandList from './slashcommand/SlashCommandList.svelte';
 
 	let { note, notesManager }: { note: Note | null; notesManager: ReturnType<typeof useNotes> } =
 		$props();
@@ -29,7 +30,7 @@
 					}
 				},
 				content: content,
-				onTransaction: ({ transaction }: { transaction: Transaction }) => {
+				onTransaction: ({ transaction }: { transaction: any }) => {
 					editorStore.update();
 
 					if (note && editorInstance && transaction.docChanged) {
@@ -74,8 +75,10 @@
 	});
 </script>
 
-{#if editorStore.editor}
-	<ToolBar />
-{/if}
-
-<div bind:this={element}></div>
+<div class="relative w-full">
+	{#if editorStore.editor}
+		<ToolBar />
+	{/if}
+	<SlashCommandList />
+	<div class="relative w-full" bind:this={element}></div>
+</div>
