@@ -12,6 +12,7 @@
 	import { render } from 'svelte/server';
 	import CreateNoteDialog from '$lib/components/edtior/dialogs/CreateNoteDialog.svelte';
 	import { dialogStore } from '$lib/store/dialog.svelte';
+	import HeaderMenu from '$lib/components/header/HeaderMenu.svelte';
 
 	const notesManager = useNotes();
 
@@ -102,7 +103,8 @@
 		{/snippet}
 	</AppSideBar>
 
-	<section class="mx-auto h-full w-full overflow-hidden py-2">
+	<section class="mx-auto w-full overflow-hidden py-0">
+		<HeaderMenu />
 		{@render children?.()}
 	</section>
 </main>

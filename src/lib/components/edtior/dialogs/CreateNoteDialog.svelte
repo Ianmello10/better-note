@@ -5,12 +5,7 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import Input from '$lib/components/ui/input/Input.svelte';
 
-	let {
-		onCreate,
-		...rest
-	}: {
-		onCreate: (title: string, content: string) => void;
-	} = $props();
+	let { ...rest } = $props();
 
 	const notesManager = useNotes();
 	let title = $state('');

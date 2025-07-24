@@ -7,6 +7,6 @@
 	const images = extractImages(allImagesNotes.notes);
 </script>
 
-<div class="flex h-full w-full">
+<div class="flex h-[calc(100vh-40px)] w-full">
 	<GridImages />
 </div>

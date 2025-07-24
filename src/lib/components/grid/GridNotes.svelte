@@ -13,13 +13,13 @@
     scrollbar-thumb-accent
     scrollbar-track-transparent
     mx-auto
+  
     grid
     w-[99%]
     auto-rows-min
-    grid-cols-1
-    gap-4
-    overflow-y-auto rounded-xl border border-accent
-     
+    grid-cols-1 gap-4 overflow-y-auto rounded-xl
+     border
+     border-accent
     bg-card/30
     px-4 py-6 sm:grid-cols-2 sm:gap-6
     md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6
