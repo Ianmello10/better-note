@@ -26,9 +26,9 @@
 <div class="lg:hidden">
 	<Dialog.Root bind:open={isMobileOpen} closeOnInteractOutside>
 		<Portal>
-			<Dialog.Backdrop />
-			<Dialog.Positioner>
-				<Dialog.Content>
+			<Dialog.Backdrop class="mobile-sidebar-backdrop" />
+			<Dialog.Positioner class="mobile-sidebar-positioner">
+				<Dialog.Content class="mobile-sidebar-content">
 					<div class="flex items-center justify-between border-b border-sidebar-border p-4">
 						<Dialog.Title class="font-semibold">Menu</Dialog.Title>
 						<Dialog.CloseTrigger class="rounded-md p-1 hover:bg-sidebar-accent">
@@ -96,14 +96,14 @@
 </div>
 
 <style>
-	:global([data-scope='dialog'][data-part='backdrop']) {
+	:global(.mobile-sidebar-backdrop) {
 		position: fixed;
 		inset: 0;
 		background-color: oklch(0 0 0 / 0.5);
 		z-index: 40;
 		animation: fadeIn 200ms ease-out;
 	}
-	:global([data-scope='dialog'][data-part='positioner']) {
+	:global(.mobile-sidebar-positioner) {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -111,7 +111,7 @@
 		width: 100%;
 		z-index: 50;
 	}
-	:global([data-scope='dialog'][data-part='content']) {
+	:global(.mobile-sidebar-content) {
 		height: 100%;
 		width: 280px;
 		background-color: var(--sidebar);
@@ -119,10 +119,10 @@
 		animation-duration: 250ms;
 		animation-timing-function: ease-out;
 	}
-	:global([data-scope='dialog'][data-part='content'][data-state='open']) {
+	:global(.mobile-sidebar-content[data-state='open']) {
 		animation-name: slideIn;
 	}
-	:global([data-scope='dialog'][data-part='content'][data-state='closed']) {
+	:global(.mobile-sidebar-content[data-state='closed']) {
 		animation-name: slideOut;
 	}
 
