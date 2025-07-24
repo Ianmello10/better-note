@@ -2,6 +2,7 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import '../app.css';
 	import AppSideBar from '$lib/components/sidebar/AppSideBar.svelte';
+	import Dialog from '$lib/components/ui/dialog/Dialog.svelte';
 	import { goto } from '$app/navigation';
 	import { Book, Home, Tags, Images } from '@lucide/svelte';
 	import { ToggleGroup } from '@ark-ui/svelte';
@@ -37,6 +38,7 @@
 </script>
 
 <ModeWatcher />
+<Dialog />
 
 <main class="flex h-screen w-full bg-background">
 	<AppSideBar bind:isMobileOpen bind:isDesktopCollapsed>
@@ -54,7 +56,6 @@
 						title={item.label}
 					>
 						<item.icon class="h-4 w-4" />
-
 						{#if !isCollapsed}
 							<span class="whitespace-nowrap">{item.label}</span>
 						{/if}

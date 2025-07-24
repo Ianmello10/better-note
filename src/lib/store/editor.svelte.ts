@@ -1,4 +1,6 @@
 import type { Editor } from '@tiptap/core';
+import { dialogStore } from './dialog.svelte';
+import ImageDialog from '$lib/components/edtior/dialogs/ImageDialog.svelte';
 
 const state = $state({
 	editor: null as Editor | null,
@@ -50,10 +52,12 @@ export const editorStore = {
 		state.editor?.chain().focus().setParagraph().run();
 	},
 	addImage() {
-		const url = window.prompt('URL');
-
-		if (url) {
-			state.editor?.chain().focus().setImage({ src: url }).run();
-		}
+		dialogStore.open(ImageDialog, {
+			onSelect: (src: string) => {
+				if (src) {
+					state.editor?.chain().focus().setImage({ src }).run();
+				}
+			}
+		});
 	}
 };
