@@ -7,29 +7,24 @@
 
 <!-- container fluido + responsivo -->
 <div
-  class="
-  w-[99%]
+	class="
   mx-auto
-    grid gap-4 sm:gap-6
-    grid-cols-1 
-    sm:grid-cols-2
-    md:grid-cols-3
-    lg:grid-cols-4
-    xl:grid-cols-5  
-    2xl:grid-cols-6  
-    auto-rows-min
+  grid
+    w-[99%] auto-rows-min grid-cols-1
+    gap-4
+    rounded-xl
+    border
+    border-accent
+    bg-card/30
     px-4
     py-6
-    border border-accent rounded-xl bg-card/30 
-	my-2
+    sm:grid-cols-2
+    sm:gap-6
+    md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6
+	 
   "
 >
-  {#each notesManager.notes as note (note.id)}
-    <CardNote
-      title={note.title}
-      content={note.content}
-      date={note.createdAt}
-      href="/{note.id}"
-    />
-  {/each}
+	{#each notesManager.notes as note (note.id)}
+		<CardNote title={note.title} content={note.content} date={note.createdAt} href="/{note.id}" />
+	{/each}
 </div>

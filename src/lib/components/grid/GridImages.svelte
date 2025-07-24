@@ -13,7 +13,6 @@
 <div
 	class="
     mx-auto
-  my-2
     grid w-[99%] auto-rows-min
     grid-cols-1
     gap-4

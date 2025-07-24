@@ -16,7 +16,7 @@
 		src={node.attrs.src}
 		alt={node.attrs.alt}
 		title={node.attrs.title}
-		class="block max-h-96 max-w-full rounded-lg transition-all"
+		class="block max-h-96 rounded-lg transition-all"
 		class:ring-2={isSelected}
 		class:ring-primary={isSelected}
 		class:ring-offset-2={isSelected}

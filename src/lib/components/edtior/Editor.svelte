@@ -28,7 +28,7 @@
 				editorProps: {
 					attributes: {
 						class:
-							'prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none w-full   max-w-none  '
+							'prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none w-full   max-w-none mx-auto    min-h-screen '
 					}
 				},
 				content: content,

@@ -40,7 +40,7 @@
 <ModeWatcher />
 <Dialog />
 
-<main class="flex h-screen w-full bg-background">
+<main class="flex h-screen w-full overflow-hidden bg-background">
 	<AppSideBar bind:isMobileOpen bind:isDesktopCollapsed>
 		{#snippet children({ isCollapsed })}
 			<ToggleGroup.Root
@@ -65,7 +65,7 @@
 		{/snippet}
 	</AppSideBar>
 
-	<section class="mx-auto w-full overflow-auto bg-amber-300">
+	<section class="mx-auto h-full w-full overflow-hidden py-2">
 		{@render children?.()}
 	</section>
 </main>

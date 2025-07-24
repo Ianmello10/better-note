@@ -42,7 +42,7 @@
 {#if isLoading}
 	<p>Loading note...</p>
 {:else if note}
-	<div class="mx-auto my-2 flex w-[99%] flex-col rounded-xl border border-accent bg-card/30">
+	<div class="mx-auto flex h-full w-[99%] flex-col overflow-hidden rounded-xl border border-accent">
 		<h1>{note.title}</h1>
 		<Editor {note} {notesManager} />
 		<!-- Renderize o resto dos detalhes da nota -->
