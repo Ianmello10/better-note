@@ -2,7 +2,6 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
-	import Image from '@tiptap/extension-image';
 
 	import ToolBar from '$lib/components/edtior/toolbar/ToolBar.svelte';
 	import type { Note } from '$lib/db/db';
@@ -11,6 +10,8 @@
 
 	import { SlashCommand } from '$lib/tiptap/extensions/slashCommand';
 	import SlashCommandList from './slashcommand/SlashCommandList.svelte';
+	import type { NodeViewProps } from '@tiptap/core';
+	import { CustomImage } from '$lib/tiptap/extensions/CustomImage'; // ✅ Importamos nossa extensão customizada
 
 	let { note, notesManager }: { note: Note | null; notesManager: ReturnType<typeof useNotes> } =
 		$props();
@@ -23,11 +24,11 @@
 			editorInstance = new Editor({
 				element: element,
 
-				extensions: [StarterKit.configure({}), SlashCommand, Image],
+				extensions: [StarterKit.configure({}), SlashCommand, CustomImage],
 				editorProps: {
 					attributes: {
 						class:
-							'prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none'
+							'prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none w-full   max-w-none  '
 					}
 				},
 				content: content,

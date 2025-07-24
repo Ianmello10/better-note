@@ -42,11 +42,11 @@
 {#if isLoading}
 	<p>Loading note...</p>
 {:else if note}
-	<article>
+	<div class="mx-auto my-2 flex w-[99%] flex-col rounded-xl border border-accent bg-card/30">
 		<h1>{note.title}</h1>
 		<Editor {note} {notesManager} />
 		<!-- Renderize o resto dos detalhes da nota -->
-	</article>
+	</div>
 {:else}
 	<!-- Este estado pode não ser alcançado por causa do 'throw error' -->
 	<p>Note could not be loaded.</p>

@@ -23,7 +23,7 @@
 		{ path: '/', label: 'All Notes', icon: Home },
 		{ path: '/books', label: 'Books', icon: Book },
 		{ path: '/tags', label: 'Tags', icon: Tags },
-		{ path: '/imgaes', label: 'Images', icon: Images }
+		{ path: '/images-note', label: 'Images', icon: Images }
 	];
 
 	const activePath = $derived(page.url.pathname);
@@ -65,7 +65,7 @@
 		{/snippet}
 	</AppSideBar>
 
-	<section class="flex-1 overflow-auto">
+	<section class="mx-auto w-full overflow-auto bg-amber-300">
 		{@render children?.()}
 	</section>
 </main>
