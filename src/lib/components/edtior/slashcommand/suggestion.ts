@@ -19,6 +19,10 @@ export const suggestion = {
 			{
 				title: 'Paragraph',
 				command: () => editorStore.setParagraph()
+			},
+			{
+				title: 'Image',
+				command: () => editorStore.addImage()
 			}
 		].filter((item) => item.title.toLowerCase().startsWith(query.toLowerCase()));
 

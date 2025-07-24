@@ -2,7 +2,8 @@
 	import { ToggleGroup } from '@ark-ui/svelte/toggle-group';
 
 	import { editorStore } from '$lib/store/editor.svelte';
-	import { Heading1, Heading2, Italic, Pilcrow } from '@lucide/svelte';
+	import { Heading1, Heading2, Italic, Pilcrow, Image } from '@lucide/svelte';
+	import { Dropdown, DropdownItem } from '$lib/components/ui/dropdown';
 
 	interface ToolbarItem {
 		label: string;
@@ -14,7 +15,8 @@
 		{ value: 'heading-1', icon: Heading1, label: 'Título nível 1' },
 		{ value: 'heading-2', icon: Heading2, label: 'Título nível 2' },
 		{ value: 'italic', icon: Italic, label: 'Itálico' },
-		{ value: 'paragraph', icon: Pilcrow, label: 'Parágrafo' }
+		{ value: 'paragraph', icon: Pilcrow, label: 'Parágrafo' },
+		{ value: 'image', icon: Image, label: 'Imagem' }
 	];
 
 	// Mapeia o estado ativo do editor para o valor do ToggleGroup
@@ -47,13 +49,15 @@
 			case 'paragraph':
 				editorStore.setParagraph();
 				break;
+			case 'image':
+				editorStore.addImage();
+				break;
 		}
 	};
 </script>
 
-
 <ToggleGroup.Root
-	class="mt-4 flex h-8 section-a   w-auto gap-x-2"
+	class="section-a mt-4 flex h-8   w-auto gap-x-2"
 	role="toolbar"
 	aria-label="Formatar texto"
 	multiple
@@ -72,8 +76,5 @@
 	{/each}
 </ToggleGroup.Root>
 
-
 <style>
-
-
 </style>

@@ -2,6 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
+	import Image from '@tiptap/extension-image';
 
 	import ToolBar from '$lib/components/edtior/toolbar/ToolBar.svelte';
 	import type { Note } from '$lib/db/db';
@@ -22,7 +23,7 @@
 			editorInstance = new Editor({
 				element: element,
 
-				extensions: [StarterKit.configure({}), SlashCommand],
+				extensions: [StarterKit.configure({}), SlashCommand, Image],
 				editorProps: {
 					attributes: {
 						class:

@@ -48,5 +48,12 @@ export const editorStore = {
 	},
 	setParagraph() {
 		state.editor?.chain().focus().setParagraph().run();
+	},
+	addImage() {
+		const url = window.prompt('URL');
+
+		if (url) {
+			state.editor?.chain().focus().setImage({ src: url }).run();
+		}
 	}
 };
