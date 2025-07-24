@@ -35,6 +35,7 @@ async function createNote(type: NoteType, title: string, content?: string) {
 	};
 	await db.notes.add(newNote);
 	currentNote = newNote;
+	return newNote;
 }
 
 async function getNoteById(id: string) {

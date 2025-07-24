@@ -60,20 +60,20 @@
 		>
 			<div class="flex h-full flex-col">
 				<div
-					class="flex h-16 items-center border-b border-sidebar-border"
+					class="flex h-14 items-center border-b border-sidebar-border"
 					class:justify-between={!isDesktopCollapsed}
 					class:justify-center={isDesktopCollapsed}
 					class:px-6={!isDesktopCollapsed}
 					class:px-2={isDesktopCollapsed}
 				>
 					{#if !isDesktopCollapsed}
-						<a
-							href="/"
-							class="flex items-center gap-2 overflow-hidden font-semibold whitespace-nowrap"
+						<span
+							class="text-md flex items-center gap-2 overflow-hidden font-semibold whitespace-nowrap"
 						>
-							<span>Better Note</span>
-						</a>
+							Better Note
+						</span>
 					{/if}
+
 					<Collapsible.Trigger class="rounded-md p-1 hover:bg-sidebar-accent">
 						<ChevronLeft
 							class={`h-5 w-5 transition-transform${isDesktopCollapsed ? ' rotate-180' : ''}`}

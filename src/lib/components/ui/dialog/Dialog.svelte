@@ -6,7 +6,11 @@
 	import { dialogStore } from '$lib/store/dialog.svelte';
 </script>
 
-<ArkDialog.Root open={dialogStore.isOpen} onOpenChange={(e) => !e.open && dialogStore.close()}>
+<ArkDialog.Root
+	closeOnEscape={true}
+	open={dialogStore.isOpen}
+	onOpenChange={(e) => !e.open && dialogStore.close()}
+>
 	<Portal>
 		<ArkDialog.Backdrop class="fixed inset-0 z-50 bg-black/80" />
 		<ArkDialog.Positioner class="fixed inset-0 z-50 flex items-center justify-center">

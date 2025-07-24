@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { error } from '@sveltejs/kit';
-	import { useNotes } from '$lib/hooks/useNotes.svelte'; // Ou seu serviço de notas
-	import type { Note } from '$lib/db/db'; // Importe seu tipo de nota
+	import { useNotes } from '$lib/hooks/useNotes.svelte';
+	import type { Note } from '$lib/db/db';
 	import Editor from '$lib/components/edtior/Editor.svelte';
 
 	// A função 'load' nos deu o ID, que agora está em 'data.noteId'
@@ -12,29 +11,36 @@
 	let note: Note | null | undefined = $state(undefined);
 	let isLoading = $state(true);
 
-	// onMount só executa no NAVEGADOR
-	onMount(async () => {
+	// Função para carregar a nota
+	async function loadNote(noteId: string) {
 		try {
-			// Agora estamos seguros para chamar o Dexie
-			const fetchedNote = await notesManager.getNoteById(data.noteId);
+			isLoading = true;
+			note = undefined;
+
+			console.log('Carregando nota com ID:', noteId);
+			const fetchedNote = await notesManager.getNoteById(noteId);
 
 			if (!fetchedNote) {
-				// Lança um erro 404 se a nota não for encontrada.
-				// O SvelteKit mostrará a página de erro.
 				throw error(404, 'Note not found');
 			}
+
 			note = fetchedNote;
+			console.log('Nota carregada:', fetchedNote);
 		} catch (err: any) {
-			// Captura o erro 404 ou qualquer outro erro do Dexie
 			console.error('Failed to load note:', err);
-			// Se não for um erro HTTP do SvelteKit, podemos lançar um genérico
 			if (err.status !== 404) {
 				throw error(500, 'Could not load the note');
 			}
-			// Se já for um erro do SvelteKit, ele será propagado
 			throw err;
 		} finally {
 			isLoading = false;
+		}
+	}
+
+	// Reage às mudanças do noteId - isso é executado sempre que data.noteId muda
+	$effect(() => {
+		if (data.noteId) {
+			loadNote(data.noteId);
 		}
 	});
 </script>
@@ -43,8 +49,18 @@
 	<p>Loading note...</p>
 {:else if note}
 	<div class="mx-auto flex h-full w-[99%] flex-col overflow-hidden rounded-xl border border-accent">
+		<div class="mx-auto flex w-full justify-between">
+			<h1 class="text-2xl font-bold">{note.type}</h1>
+			<input
+				type="text"
+				bind:value={note.title}
+				class="mt-1 block w-full rounded-md border border-border bg-background px-3 py-2 text-sm shadow-sm focus:border-primary focus:ring-primary"
+			/>
+		</div>
 		<h1>{note.title}</h1>
-		<Editor {note} {notesManager} />
+		{#key data.noteId}
+			<Editor {note} {notesManager} />
+		{/key}
 		<!-- Renderize o resto dos detalhes da nota -->
 	</div>
 {:else}

@@ -4,9 +4,21 @@
 	import AppSideBar from '$lib/components/sidebar/AppSideBar.svelte';
 	import Dialog from '$lib/components/ui/dialog/Dialog.svelte';
 	import { goto } from '$app/navigation';
-	import { Book, Home, Tags, Images } from '@lucide/svelte';
+	import { Book, Home, Tags, Images, Plus } from '@lucide/svelte';
 	import { ToggleGroup } from '@ark-ui/svelte';
 	import { page } from '$app/state';
+	import { useNotes } from '$lib/hooks/useNotes.svelte';
+	import type { NoteType } from '$lib/db/db';
+	import { render } from 'svelte/server';
+	import CreateNoteDialog from '$lib/components/edtior/dialogs/CreateNoteDialog.svelte';
+	import { dialogStore } from '$lib/store/dialog.svelte';
+
+	const notesManager = useNotes();
+
+	let title = $state('');
+	let content = $state('');
+	let typeNote = $state<NoteType>('note');
+	let createNote = $state(false);
 
 	let { children } = $props();
 
@@ -35,6 +47,10 @@
 			isMobileOpen = false;
 		}
 	}
+
+	function handleCreateNote() {
+		dialogStore.open(CreateNoteDialog, {});
+	}
 </script>
 
 <ModeWatcher />
@@ -49,15 +65,36 @@
 				value={[activePath]}
 				onValueChange={handleNavChange}
 			>
+				<ToggleGroup.Item
+					value=""
+					class={`mt-2 mb-9 flex w-full cursor-pointer items-center gap-2 rounded-lg border-[1px] border-sidebar-accent bg-muted py-2 transition-colors hover:bg-muted
+					 ${isCollapsed ? 'justify-center' : ''}`}
+					title="New Content"
+				>
+					<Plus class="h-4 w-4" />
+					{#if !isCollapsed}
+						<button
+							type="button"
+							class="text-md m-0 cursor-pointer border-none bg-transparent p-0 whitespace-nowrap"
+							onclick={handleCreateNote}
+							aria-label="Create new content"
+						>
+							New content
+						</button>
+					{/if}
+				</ToggleGroup.Item>
+				{#if !isCollapsed}
+					<span class="pb-1 text-xs font-semibold text-muted-foreground">Objects</span>
+				{/if}
 				{#each navItems as item}
 					<ToggleGroup.Item
 						value={item.path}
-						class={`flex w-full items-center gap-2 py-2 transition-colors ${isCollapsed ? 'justify-center' : ''}`}
+						class={` flex w-full cursor-pointer items-center gap-2 py-2 transition-colors ${isCollapsed ? 'justify-center' : ''}`}
 						title={item.label}
 					>
 						<item.icon class="h-4 w-4" />
 						{#if !isCollapsed}
-							<span class="whitespace-nowrap">{item.label}</span>
+							<span class="text-md whitespace-nowrap">{item.label} </span>
 						{/if}
 					</ToggleGroup.Item>
 				{/each}
