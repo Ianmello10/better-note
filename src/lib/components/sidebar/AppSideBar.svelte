@@ -82,7 +82,9 @@
 				</div>
 
 				<nav
-					class={`flex flex-col items-center gap-2 overflow-auto  py-4 ${isDesktopCollapsed ? 'justify-items-center' : ''} items-start   font-medium`}
+					class="flex flex-col gap-2 overflow-auto py-4 font-medium"
+					class:items-start={!isDesktopCollapsed}
+					class:items-center={isDesktopCollapsed}
 				>
 					{#if children}
 						{@render children({ isCollapsed: isDesktopCollapsed })}

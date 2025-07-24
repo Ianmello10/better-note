@@ -42,7 +42,7 @@
 	<AppSideBar bind:isMobileOpen bind:isDesktopCollapsed>
 		{#snippet children({ isCollapsed })}
 			<ToggleGroup.Root
-				class={`flex w-full flex-col gap-1 gap-x-3 gap-y-3 px-3  text-sm`}
+				class={`flex w-full flex-col gap-1 text-sm ${isCollapsed ? 'px-2' : 'px-3'}`}
 				aria-label="Navegação Principal"
 				value={[activePath]}
 				onValueChange={handleNavChange}
@@ -50,7 +50,7 @@
 				{#each navItems as item}
 					<ToggleGroup.Item
 						value={item.path}
-						class={`flex  items-center  gap-2 py-2 transition-all  `}
+						class={`flex w-full items-center gap-2 py-2 transition-colors ${isCollapsed ? 'justify-center' : ''}`}
 						title={item.label}
 					>
 						<item.icon class="h-4 w-4" />

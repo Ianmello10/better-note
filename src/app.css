@@ -154,6 +154,8 @@
 
 @layer components {
 	/* Item base */
+	/* Sidebar actions */
+
 	[data-scope='toggle-group'][data-part='item'] {
 		background-color: var(--sidebar);
 		color: var(--sidebar-foreground);
@@ -166,8 +168,8 @@
 
 	/* Item ativado (on) */
 	[data-scope='toggle-group'][data-part='item'][data-state='on'] {
-		background-color: var(--primary);
-		color: var(--muted);
+		background-color: var(--muted);
+		color: var(--foreground);
 		border-color: var(--primary);
 	}
 
