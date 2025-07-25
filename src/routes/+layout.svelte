@@ -9,6 +9,7 @@
 	import { page } from '$app/state';
 
 	import CreateNoteDialog from '$lib/components/edtior/dialogs/CreateNoteDialog.svelte';
+	import SearchDialog from '$lib/components/edtior/dialogs/SearchDialog.svelte';
 	import { dialogStore } from '$lib/store/dialog.svelte';
 	import HeaderMenu from '$lib/components/header/HeaderMenu.svelte';
 
@@ -43,6 +44,10 @@
 	function handleCreateNote() {
 		dialogStore.open(CreateNoteDialog, {});
 	}
+
+	function handleSearch() {
+		dialogStore.open(SearchDialog, {});
+	}
 </script>
 
 <ModeWatcher />
@@ -75,6 +80,15 @@
 						</button>
 					{/if}
 				</ToggleGroup.Item>
+
+				<button
+					type="button"
+					class="text-md m-0 cursor-pointer border-none bg-transparent p-0 whitespace-nowrap"
+					onclick={handleSearch}
+					aria-label="Create new content"
+				>
+					Search
+				</button>
 				{#if !isCollapsed}
 					<span class="pb-1 text-xs font-semibold text-muted-foreground">Objects</span>
 				{/if}

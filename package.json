@@ -51,6 +51,7 @@
 		"@tiptap/starter-kit": "^3.0.7",
 		"@tiptap/suggestion": "^3.0.7",
 		"dexie": "^4.0.11",
+		"fuse.js": "^7.1.0",
 		"mode-watcher": "^1.1.0",
 		"resize-observer-polyfill": "^1.5.1",
 		"simplebar": "^6.3.2"
