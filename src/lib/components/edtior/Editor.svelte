@@ -12,6 +12,7 @@
 	import SlashCommandList from './slashcommand/SlashCommandList.svelte';
 	import type { NodeViewProps } from '@tiptap/core';
 	import { CustomImage } from '$lib/tiptap/extensions/CustomImage'; // ✅ Importamos nossa extensão customizada
+	import CoverImage from '../banner-image/CoverImage.svelte';
 
 	let { note, notesManager }: { note: Note | null; notesManager: ReturnType<typeof useNotes> } =
 		$props();
@@ -28,7 +29,7 @@
 				editorProps: {
 					attributes: {
 						class:
-							'prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none w-full   max-w-none mx-auto    min-h-screen '
+							'prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none w-full max-w-none mx-auto'
 					}
 				},
 				content: content,
@@ -77,10 +78,15 @@
 	});
 </script>
 
-<div class="relative w-full">
-	{#if editorStore.editor}
-		<ToolBar />
-	{/if}
+<div class="    flex w-full flex-col">
 	<SlashCommandList />
-	<div class="relative w-full" bind:this={element}></div>
+	<div class=" w-full" bind:this={element}>
+		{#if editorStore.editor}
+			<ToolBar />
+		{/if}
+		<CoverImage />
+	</div>
 </div>
+
+<style>
+</style>

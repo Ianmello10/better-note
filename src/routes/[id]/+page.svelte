@@ -3,31 +3,30 @@
 	import { useNotes } from '$lib/hooks/useNotes.svelte';
 	import type { Note } from '$lib/db/db';
 	import Editor from '$lib/components/edtior/Editor.svelte';
-	import { page } from '$app/state';
-	import HeaderMenu from '$lib/components/header/HeaderMenu.svelte';
+	import 'simplebar/dist/simplebar.min.css';
+	import SimpleBar from 'simplebar';
+	import ResizeObserver from 'resize-observer-polyfill';
 
-	// A função 'load' nos deu o ID, que agora está em 'data.noteId'
+	// Polyfill para navegadores mais antigos
+	if (typeof window !== 'undefined') {
+		window.ResizeObserver = ResizeObserver;
+	}
+
 	let { data } = $props();
 	const notesManager = useNotes();
 
 	let note: Note | null | undefined = $state(undefined);
 	let isLoading = $state(true);
 
-	// Função para carregar a nota
 	async function loadNote(noteId: string) {
 		try {
 			isLoading = true;
 			note = undefined;
-
-			console.log('Carregando nota com ID:', noteId);
 			const fetchedNote = await notesManager.getNoteById(noteId);
-
 			if (!fetchedNote) {
 				throw error(404, 'Note not found');
 			}
-
 			note = fetchedNote;
-			console.log('Nota carregada:', fetchedNote);
 		} catch (err: any) {
 			console.error('Failed to load note:', err);
 			if (err.status !== 404) {
@@ -39,7 +38,6 @@
 		}
 	}
 
-	// Reage às mudanças do noteId - isso é executado sempre que data.noteId muda
 	$effect(() => {
 		if (data.noteId) {
 			loadNote(data.noteId);
@@ -48,24 +46,45 @@
 </script>
 
 {#if isLoading}
-	<p>Loading note...</p>
+	<div class="flex h-full items-center justify-center">
+		<p>Loading note...</p>
+	</div>
 {:else if note}
-	<div class="mx-auto flex h-full w-[99%] flex-col overflow-hidden rounded-xl border border-accent">
-		<div class="mx-auto flex w-full justify-between">
-			<h1 class="text-2xl font-bold">{note.type}</h1>
-			<input
-				type="text"
-				bind:value={note.title}
-				class="mt-1 block w-full rounded-md border border-border bg-background px-3 py-2 text-sm shadow-sm focus:border-primary focus:ring-primary"
-			/>
-		</div>
-		<h1>{note.title}</h1>
+	<div
+		data-simplebar
+		data-simplebar-auto-hide="true"
+		class="relative mx-auto h-[calc(100vh-40px)] w-[99%] rounded-xl border border-accent bg-card/30"
+	>
 		{#key data.noteId}
 			<Editor {note} {notesManager} />
 		{/key}
-		<!-- Renderize o resto dos detalhes da nota -->
 	</div>
-{:else}
-	<!-- Este estado pode não ser alcançado por causa do 'throw error' -->
-	<p>Note could not be loaded.</p>
 {/if}
+
+<style>
+	/* Garante que o wrapper da simplebar ocupe toda a altura do contêiner */
+	:global(.simplebar-wrapper) {
+		height: 100%;
+		overflow: auto; /* Garante que o overflow seja gerenciado */
+	}
+
+	/* Remove padding/margin do contêiner de conteúdo da simplebar */
+	:global(.simplebar-content) {
+		padding: 0 !important;
+		margin: 0 !important;
+		height: 100%;
+	}
+
+	/* Estiliza a barra de rolagem */
+	:global(.simplebar-scrollbar::before) {
+		background-color: oklch(43.861% 0.00005 271.152);
+
+		border-radius: 6px;
+	}
+
+	/* Estiliza a trilha da barra de rolagem */
+	:global(.simplebar-track.simplebar-vertical) {
+		width: 10px;
+		background-color: transparent;
+	}
+</style>

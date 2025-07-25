@@ -7,11 +7,7 @@
 
 <div
 	class="
-   scroll-container
-  scrollbar-thin
-    scrollbar-thumb-rounded-full
-    scrollbar-thumb-accent
-    scrollbar-track-transparent
+   
     mx-auto
   
     grid

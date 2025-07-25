@@ -57,7 +57,7 @@
 </script>
 
 <ToggleGroup.Root
-	class="section-a mt-4 flex h-8   w-auto gap-x-2"
+	class="section-a absolute top-70 mt-4 flex h-8  w-auto gap-x-2"
 	role="toolbar"
 	aria-label="Formatar texto"
 	multiple
