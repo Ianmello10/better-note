@@ -2,6 +2,40 @@
 	import { page } from '$app/state';
 	import { ArrowLeft, ArrowRight, Ellipsis } from '@lucide/svelte';
 	import ToolTip from '$lib/components/ui/tooltip/ToolTip.svelte';
+	import { useNotes } from '$lib/hooks/useNotes.svelte';
+
+	const notesManager = useNotes();
+	let pageTitle = $state<string>('');
+
+	$effect(() => {
+		const { pathname } = page.url;
+		const { id: noteId } = page.params;
+
+		if (noteId) {
+			pageTitle = 'Loading...';
+			notesManager.getNoteById(noteId).then((note) => {
+				pageTitle = note?.title || 'Note';
+			});
+		} else {
+			switch (pathname) {
+				case '/':
+					pageTitle = 'All Notes';
+					break;
+				case '/images-note':
+					pageTitle = 'Images';
+					break;
+				case '/books':
+					pageTitle = 'Books';
+					break;
+				case '/tags':
+					pageTitle = 'Tags';
+					break;
+				default:
+					pageTitle = 'Better Note';
+					break;
+			}
+		}
+	});
 
 	function goBack() {
 		history.back();
@@ -9,33 +43,6 @@
 	function goForward() {
 		history.forward();
 	}
-
-	//const currentPage = page.url.pathname;
-	let pageTitle = $state('');
-
-	function verifyPathName(currentPage: string) {
-		switch (currentPage) {
-			case '/':
-				pageTitle = 'Notes';
-				break;
-			case '/images-note':
-				pageTitle = 'Images Note';
-				break;
-			case '/books':
-				pageTitle = 'Books';
-				break;
-			default:
-				pageTitle = 'Unknown'; // Ou qualquer valor padrão desejado
-				break;
-		}
-	}
-
-	$effect(() => {
-		// Acesse page.url.pathname diretamente aqui
-		verifyPathName(page.url.pathname);
-		// Opcional: adicione um console.log para debug
-		// console.log('Pathname changed to:', page.url.pathname);
-	});
 </script>
 
 <div class="mx-auto flex h-9 w-[99%] items-center justify-between px-2">

@@ -7,19 +7,10 @@
 	import { Book, Home, Tags, Images, Plus } from '@lucide/svelte';
 	import { ToggleGroup } from '@ark-ui/svelte';
 	import { page } from '$app/state';
-	import { useNotes } from '$lib/hooks/useNotes.svelte';
-	import type { NoteType } from '$lib/db/db';
-	import { render } from 'svelte/server';
+
 	import CreateNoteDialog from '$lib/components/edtior/dialogs/CreateNoteDialog.svelte';
 	import { dialogStore } from '$lib/store/dialog.svelte';
 	import HeaderMenu from '$lib/components/header/HeaderMenu.svelte';
-
-	const notesManager = useNotes();
-
-	let title = $state('');
-	let content = $state('');
-	let typeNote = $state<NoteType>('note');
-	let createNote = $state(false);
 
 	let { children } = $props();
 

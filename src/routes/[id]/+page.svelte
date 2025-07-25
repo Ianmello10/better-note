@@ -3,6 +3,8 @@
 	import { useNotes } from '$lib/hooks/useNotes.svelte';
 	import type { Note } from '$lib/db/db';
 	import Editor from '$lib/components/edtior/Editor.svelte';
+	import { page } from '$app/state';
+	import HeaderMenu from '$lib/components/header/HeaderMenu.svelte';
 
 	// A função 'load' nos deu o ID, que agora está em 'data.noteId'
 	let { data } = $props();

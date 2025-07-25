@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import { db } from '$lib/db/db';
 	import GridNotes from '$lib/components/grid/GridNotes.svelte';
+
 	const notesManager = useNotes();
 
 	onMount(async () => {
