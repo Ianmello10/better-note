@@ -5,18 +5,14 @@
 	import { goto } from '$app/navigation';
 	import { onMount, onDestroy } from 'svelte';
 	import { Dialog } from '@ark-ui/svelte/dialog';
+	import Input from '$lib/components/ui/input/Input.svelte';
 
 	const searchManager = useSearch();
 	let query = $state('');
-	let inputElement: HTMLInputElement;
+	//let inputElement: HTMLInputElement;
 
 	// Getter reativo para os resultados
 	const results = $derived(searchManager.results);
-
-	// Foca no input assim que o diálogo é montado
-	onMount(() => {
-		inputElement?.focus();
-	});
 
 	// Cleanup quando o componente é destruído
 	onDestroy(() => {
@@ -42,8 +38,9 @@
 	<!-- Input de Busca -->
 	<div class="relative">
 		<Search class="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-		<input
-			bind:this={inputElement}
+		<Input
+			label="Search"
+			name="search"
 			type="text"
 			bind:value={query}
 			placeholder="Search by title, content, type, or tag..."

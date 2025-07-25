@@ -1,13 +1,13 @@
 <script lang="ts">
-	import type { Tag } from '$lib/db/db'; // Supondo que você tenha um tipo Tag
+	import type { Tag } from '$lib/db/db';
+	import { extractTextPreview } from '$lib/editor-utils';
 
 	let {
 		title,
 		content,
 		date,
 		tags,
-		href = '',
-		 
+		href = ''
 	}: {
 		title: string;
 		content?: string;
@@ -22,6 +22,9 @@
 		month: 'short',
 		year: 'numeric'
 	}).format(date);
+
+	// Extrai preview do texto limpo
+	const textPreview = extractTextPreview(content, 120);
 </script>
 
 <!--
@@ -31,14 +34,14 @@ Isso torna o card semanticamente correto e clicável quando necessário.
 {#if href}
 	<a
 		{href}
-		class="block rounded-lg border-muted border-[1px]  bg-card text-card-foreground shadow-sm transition-all hover:shadow-md    "
+		class="block rounded-lg border-[1px] border-muted bg-card text-card-foreground shadow-sm transition-all hover:shadow-md"
 	>
 		<div class="flex flex-col space-y-1.5 p-6">
-			<h3 class="text-lg font-semibold leading-none tracking-tight">{title}</h3>
+			<h3 class="text-lg leading-none font-semibold tracking-tight">{title}</h3>
 			<p class="text-sm text-muted-foreground">{formattedDate}</p>
 		</div>
 		<div class="p-6 pt-0">
-			<p class="text-sm text-muted-foreground line-clamp-3">{@html content}</p>
+			<p class="line-clamp-3 text-sm text-muted-foreground">{textPreview}</p>
 		</div>
 		{#if tags && tags.length > 0}
 			<div class="flex items-center p-6 pt-0">
@@ -52,6 +55,4 @@ Isso torna o card semanticamente correto e clicável quando necessário.
 			</div>
 		{/if}
 	</a>
- 
-	 
 {/if}
