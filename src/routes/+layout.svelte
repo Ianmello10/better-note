@@ -4,7 +4,7 @@
 	import AppSideBar from '$lib/components/sidebar/AppSideBar.svelte';
 	import Dialog from '$lib/components/ui/dialog/Dialog.svelte';
 	import { goto } from '$app/navigation';
-	import { Book, Home, Tags, Images, Plus } from '@lucide/svelte';
+	import { Book, Home, Tags, Images, Plus, Search } from '@lucide/svelte';
 	import { ToggleGroup } from '@ark-ui/svelte';
 	import { page } from '$app/state';
 
@@ -64,15 +64,15 @@
 			>
 				<ToggleGroup.Item
 					value=""
-					class={`mt-2 mb-9 flex w-full cursor-pointer items-center gap-2 rounded-lg border-[1px] border-sidebar-accent bg-muted py-2 transition-colors hover:bg-muted
+					class={`mt-2 mb-2 flex w-full cursor-pointer items-center gap-2 rounded-lg border-[1px] border-sidebar-accent bg-muted py-2 transition-colors hover:bg-muted
 					 ${isCollapsed ? 'justify-center' : ''}`}
 					title="New Content"
 				>
-					<Plus class="h-4 w-4" />
+					<Plus onclick={handleCreateNote} class="h-4 w-4" />
 					{#if !isCollapsed}
 						<button
 							type="button"
-							class="text-md m-0 cursor-pointer border-none bg-transparent p-0 whitespace-nowrap"
+							class="text-md mb-0 cursor-pointer border-none bg-transparent p-0 whitespace-nowrap"
 							onclick={handleCreateNote}
 							aria-label="Create new content"
 						>
@@ -81,14 +81,25 @@
 					{/if}
 				</ToggleGroup.Item>
 
-				<button
-					type="button"
-					class="text-md m-0 cursor-pointer border-none bg-transparent p-0 whitespace-nowrap"
-					onclick={handleSearch}
-					aria-label="Create new content"
+				<ToggleGroup.Item
+					value=""
+					class={`mt-2 mb-10 flex w-full cursor-pointer items-center gap-2 rounded-lg  border-sidebar-accent bg-sidebar py-2 transition-colors hover:bg-muted
+					 ${isCollapsed ? 'justify-center' : ''}`}
+					title="New Content"
 				>
-					Search
-				</button>
+					<Search onclick={handleSearch} class="h-4 w-4" />
+					{#if !isCollapsed}
+						<button
+							type="button"
+							class="text-md m-0 cursor-pointer border-none bg-transparent p-0 whitespace-nowrap"
+							onclick={handleSearch}
+							aria-label="Search content"
+						>
+							Search
+						</button>
+					{/if}
+				</ToggleGroup.Item>
+
 				{#if !isCollapsed}
 					<span class="pb-1 text-xs font-semibold text-muted-foreground">Objects</span>
 				{/if}
