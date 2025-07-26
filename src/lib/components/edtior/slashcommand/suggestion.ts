@@ -23,6 +23,18 @@ export const suggestion = {
 			{
 				title: 'Image',
 				command: () => editorStore.addImage()
+			},
+			{
+				title: 'Bulleted List',
+				command: () => editorStore.toggleBulletList()
+			},
+			{
+				title: 'Numbered List',
+				command: () => editorStore.toggleNumberedList()
+			},
+			{
+				title: 'Horizontal Rule',
+				command: () => editorStore.addHorizontalRule()
 			}
 		].filter((item) => item.title.toLowerCase().startsWith(query.toLowerCase()));
 
@@ -32,7 +44,7 @@ export const suggestion = {
 	render: () => {
 		return {
 			onStart: (props: any) => {
-				 
+
 				const command = (item: any) => {
 					// 1. PRIMEIRO, delete o texto do comando (ex: "/italic").
 					props.editor.chain().focus().deleteRange(props.range).run();
@@ -44,7 +56,7 @@ export const suggestion = {
 			},
 
 			onUpdate: (props: any) => {
-				 
+
 				const command = (item: any) => {
 					// Mesma lógica do onStart
 					props.editor.chain().focus().deleteRange(props.range).run();

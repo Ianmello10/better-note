@@ -59,5 +59,14 @@ export const editorStore = {
 				}
 			}
 		});
+	},
+	toggleBulletList() {
+		state.editor?.chain().focus().toggleBulletList().run();
+	},
+	toggleNumberedList() {
+		state.editor?.chain().focus().toggleOrderedList().run();
+	},
+	addHorizontalRule() {
+		state.editor?.chain().focus().setHorizontalRule().run();
 	}
 };
