@@ -190,8 +190,66 @@
 		opacity: 0.5;
 		cursor: not-allowed;
 	}
-}
 
+	/* Estilos para Tabs */
+	[data-scope='tabs'][data-part='list'] {
+		position: relative;
+		display: inline-flex;
+		height: 2.5rem;
+		align-items: center;
+		justify-content: center;
+		border-radius: 0.375rem;
+		background-color: var(--muted);
+		padding: 0.25rem;
+		color: var(--muted-foreground);
+	}
+
+	[data-scope='tabs'][data-part='trigger'] {
+		position: relative;
+		z-index: 10;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		white-space: nowrap;
+		border-radius: 0.375rem;
+		padding: 0.375rem 0.75rem;
+		font-size: 0.875rem;
+		font-weight: 500;
+		transition: all 200ms ease-in-out;
+	}
+
+	[data-scope='tabs'][data-part='trigger']:focus-visible {
+		outline: 2px solid var(--ring);
+		outline-offset: 2px;
+	}
+
+	[data-scope='tabs'][data-part='trigger'][data-disabled] {
+		pointer-events: none;
+		opacity: 0.5;
+	}
+
+	[data-scope='tabs'][data-part='trigger'][data-state='active'] {
+		color: var(--foreground);
+	}
+
+	[data-scope='tabs'][data-part='indicator'] {
+		position: absolute;
+		bottom: 4px;
+		left: 0;
+		z-index: 5;
+		height: calc(100% - 8px);
+		border-radius: 0.375rem;
+		background-color: var(--background);
+		box-shadow: var(--shadow-sm);
+		transition:
+			transform 200ms ease-in-out,
+			width 200ms ease-in-out;
+	}
+
+	[data-scope='tabs'][data-part='content'] {
+		margin-top: 0.5rem;
+	}
+}
 .section-a {
 	/* Estilo base para todos os itens do ToggleGroup */
 	[data-scope='toggle-group'][data-part='item'] {
